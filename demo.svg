@@ -1,0 +1,32 @@
+<?xml version="1.0" standalone="no"?>
+<svg width="100%" height="100%" version="1.1"
+xmlns="http://www.w3.org/2000/svg">
+
+<!-- points="x1,y1 x2,y2 x3,y3"-->
+<polygon points="220,100 300,210 170,250 123,234"
+style="fill:#cccccc;
+stroke:#000000;stroke-width:1"/>
+
+<polyline points="0,0 0,20 20,20 20,40 40,40 40,60"
+style="fill:white;stroke:red;stroke-width:2"/>
+
+<polyline points=" 130,70 170,130 140,160"
+style="fill:white;stroke:green;stroke-width:3"/>
+
+<polygon points="200,10 250,190 160,210"
+   style="fill:yellow;stroke:purple;stroke-width:1"/>
+
+<circle cx="100" cy="50" r="40" stroke="black"
+stroke-width="2" fill="red"/>
+
+<circle cx="80" cy="25" r="40" stroke="black"
+stroke-width="2" fill="green"/>
+
+<circle cx="180" cy="80" r="40" stroke="black"
+stroke-width="2" fill="orange"/>
+
+<line x1="0" y1="0" x2="300" y2="300"
+style="stroke:yellow;stroke-width:2"/>
+    <circle cx="180" cy="80" r="40" stroke="black"
+            stroke-width="2" fill="orange"/>
+</svg>
