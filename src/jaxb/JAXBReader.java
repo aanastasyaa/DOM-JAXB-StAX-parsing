@@ -14,6 +14,10 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.TreeMap;
 
+/**
+ * Обрабатывает XML-файл с помощью JAXB
+ * C помощью xjc были сгенерированы классы по схеме osm.xsd
+ */
 public class JAXBReader {
     private String filename;
     private ArrayList<String> busStops;
@@ -33,14 +37,17 @@ public class JAXBReader {
         return streets;
     }
 
+    /**
+     * Загрузка (демаршализация) объекта класса Osm из XML-файла
+     * @return - список объектов, которые были дочерними тегами тега osm в XML-файле
+     */
     private ArrayList<Object> unmarshal() {
         Osm root=null;
         try {
             JAXBContext jxc = JAXBContext.newInstance(Osm.class);
             Unmarshaller u = jxc.createUnmarshaller();
-            //JAXBElement je = (JAXBElement)u.unmarshal(new File(filename));
             root=(Osm)u.unmarshal(new File(filename));
-            //root=(Osm)je.getValue();
+
         }
         catch(JAXBException e) {
             e.printStackTrace();
@@ -52,11 +59,15 @@ public class JAXBReader {
     public void process() {
         ArrayList<Object> list=unmarshal();
         fillListOfBusStops(list);
-        //System.out.println(busStops.toString());
         fillListOfStreets(list);
         printStreets();
     }
 
+    /**
+     * Формирование списка остановок общественного транспорта
+     * <node>     <tag k='highway' v='bus_stop' />
+     * @param list - список объектов, которые были дочерними тегами тега osm в XML-файле
+     */
     private void fillListOfBusStops(ArrayList<Object> list) {
         for(Object obj:list) {
             if(obj instanceof Node) {
@@ -74,6 +85,11 @@ public class JAXBReader {
         }
     }
 
+    /**
+     * Формирование списка улиц
+     * тег <way> c вложенным тегом highway=* , у которого есть <tag k='name'
+     * @param list - список объектов, которые были дочерними тегами тега osm в XML-файле
+     */
     private void fillListOfStreets(ArrayList<Object> list) {
         for (Object obj : list) {
             if (obj instanceof Way) {

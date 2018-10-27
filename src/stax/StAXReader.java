@@ -18,11 +18,16 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.TreeMap;
 
+/**
+ * Обработка XML-файла с помощью StAX
+ */
 public class StAXReader {
+
     private String filename;
     private String schemaFile;
     private ArrayList<String> busStops;
     private TreeMap<String, StreetData> streets;
+
     public StAXReader(String filename, String schema) {
         this.filename=filename;
         this.schemaFile =schema;
@@ -43,15 +48,22 @@ public class StAXReader {
         printStreets();
     }
 
+    /**
+     * Считывает XML-файл, проверяет его соответствие схеме.
+     * Формирует список остановок общественного транспорта (busStops) и список улиц (streets) по ходу чтения.
+     * Улица - тег <way> c вложенным тегом highway=* , у которого есть <tag k='name'
+     * Остановка - <node> <tag k='highway' v='bus_stop' />
+     */
     private void readStax() {
         try {
-            XMLInputFactory xmlInputFactory = XMLInputFactory.newInstance();
-            XMLStreamReader reader = xmlInputFactory.createXMLStreamReader(new FileReader(filename));
-
+            //проверка соответствия XML-файла схеме
             SchemaFactory factory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
             Schema schema = factory.newSchema(new File(schemaFile));
             Validator validator = schema.newValidator();
             validator.validate(new StreamSource(new File(filename)));
+
+            XMLInputFactory xmlInputFactory = XMLInputFactory.newInstance();
+            XMLStreamReader reader = xmlInputFactory.createXMLStreamReader(new FileReader(filename));
 
             boolean isBusStop=false;
             boolean isWay=false;

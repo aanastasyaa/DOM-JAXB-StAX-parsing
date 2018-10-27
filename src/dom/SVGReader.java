@@ -16,14 +16,25 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.StringWriter;
 
+/**
+ * Класс, обрабатывающий SVG-файл с помощью DOM.
+ *
+ */
 public class SVGReader {
+
     private String filename;
-    private String saveFile;
+    private String saveFile;//имя, с которым файл будет сохранен
+
     public SVGReader(String filename, String saveFileName) {
         this.filename=filename;
         saveFile=saveFileName;
     }
 
+    /**
+     * Разбор SVG-файла с помощью DocumentBuilder и создание Document
+     * @return - объект Document
+     * @throws SAXException
+     */
     private Document readSVGToDocument() throws SAXException {
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
         documentBuilderFactory.setNamespaceAware(true); // поддерживать пространства имен
@@ -44,6 +55,9 @@ public class SVGReader {
         }
     }
 
+    /**
+     * Метод, выполняющий задание ЛР
+     */
     public void process() {
         try {
             Document doc=readSVGToDocument();
@@ -54,12 +68,19 @@ public class SVGReader {
             refillElements(root, "path","black");
             createCircleInCircle(root);
             save(doc);
-        }
-        catch(Exception e) {
+        } catch (SAXException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
             e.printStackTrace();
         }
+
     }
 
+    /**
+     * Находит в документе все дочерние узлы root с тегом tagname
+     * @param root - корень документа
+     * @param tagname - тег, по которому ведется поиск узлов
+     */
     private void printNodeList(Element root, String tagname) {
         NodeList listNodes=root.getElementsByTagName(tagname);
         StringWriter writer = new StringWriter();
@@ -82,6 +103,13 @@ public class SVGReader {
         System.out.println(writer);
     }
 
+    /**
+     * У всех дочерних root узлов c тегом tagname устанавливает свойство fill = color,
+     * т. е. закрашивает элементы с тегом tagname цветом color
+     * @param root - корень документа
+     * @param tagname - тег, у которых будет изменено свойство fill
+     * @param color - устанавливаемое значение свойства fill
+     */
     private void refillElements(Element root, String tagname, String color) {
         NodeList listNodes=root.getElementsByTagName(tagname);
         for(int i=0; i<listNodes.getLength(); ++i) {
@@ -99,6 +127,11 @@ public class SVGReader {
         }
     }
 
+    /**
+     * У окружностей (элементы с тегом circle, дочерние узлы root) отмечает центр красной точкой,
+     * т. е. добавляет внутрь еще одну окружность с атрибутом fill = red
+     * @param root - корень документа
+     */
     private void createCircleInCircle(Element root) {
         NodeList listNodes=root.getElementsByTagName("circle");
         int len=listNodes.getLength();
@@ -112,6 +145,12 @@ public class SVGReader {
         }
     }
 
+    /**
+     * Сохраняет модифицированный документ под именем saveFile
+     * с помощью Transform API.
+     * @param doc - сохраняемый документ
+     * @throws IOException
+     */
     private void save(Document doc) throws IOException {
         Result sr = new StreamResult(new FileWriter(saveFile));
         DOMSource domSource = new DOMSource(doc);

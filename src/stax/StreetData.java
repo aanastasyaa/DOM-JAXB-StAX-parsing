@@ -2,6 +2,11 @@ package stax;
 
 import java.util.HashSet;
 
+/**
+ * Представляет собой информацию о улице.
+ * Хранит количество ее кусков, ID,
+ * множество использованных классов дороги (primary, secondary, tertiary и т. д. – значения тега highway)
+ */
 public class StreetData {
     private long ID;
     private int parts;
