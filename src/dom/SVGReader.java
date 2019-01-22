@@ -32,7 +32,7 @@ public class SVGReader {
 
     /**
      * Разбор SVG-файла с помощью DocumentBuilder и создание Document
-     * @return - объект Document
+     * @return объект {@code Document}
      * @throws SAXException
      */
     private Document readSVGToDocument() throws SAXException {
@@ -78,8 +78,8 @@ public class SVGReader {
 
     /**
      * Находит в документе все дочерние узлы root с тегом tagname
-     * @param root - корень документа
-     * @param tagname - тег, по которому ведется поиск узлов
+     * @param root      корень документа
+     * @param tagname   тег, по которому ведется поиск узлов
      */
     private void printNodeList(Element root, String tagname) {
         NodeList listNodes=root.getElementsByTagName(tagname);
@@ -106,9 +106,9 @@ public class SVGReader {
     /**
      * У всех дочерних root узлов c тегом tagname устанавливает свойство fill = color,
      * т. е. закрашивает элементы с тегом tagname цветом color
-     * @param root - корень документа
-     * @param tagname - тег, у которых будет изменено свойство fill
-     * @param color - устанавливаемое значение свойства fill
+     * @param root      корень документа
+     * @param tagname   название тега, у которых будет изменено свойство fill
+     * @param color     устанавливаемое значение свойства fill
      */
     private void refillElements(Element root, String tagname, String color) {
         NodeList listNodes=root.getElementsByTagName(tagname);
@@ -130,7 +130,7 @@ public class SVGReader {
     /**
      * У окружностей (элементы с тегом circle, дочерние узлы root) отмечает центр красной точкой,
      * т. е. добавляет внутрь еще одну окружность с атрибутом fill = red
-     * @param root - корень документа
+     * @param root   корень документа
      */
     private void createCircleInCircle(Element root) {
         NodeList listNodes=root.getElementsByTagName("circle");
@@ -148,7 +148,7 @@ public class SVGReader {
     /**
      * Сохраняет модифицированный документ под именем saveFile
      * с помощью Transform API.
-     * @param doc - сохраняемый документ
+     * @param doc   сохраняемый документ
      * @throws IOException
      */
     private void save(Document doc) throws IOException {
