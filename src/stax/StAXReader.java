@@ -51,8 +51,9 @@ public class StAXReader {
     /**
      * Считывает XML-файл, проверяет его соответствие схеме.
      * Формирует список остановок общественного транспорта (busStops) и список улиц (streets) по ходу чтения.
-     * Улица - тег <way> c вложенным тегом highway=* , у которого есть <tag k='name'
-     * Остановка - <node> <tag k='highway' v='bus_stop' />
+     * <p>
+     * Улица - тег {@code <way>} c вложенным тегом highway=* , у которого есть {@code <tag k='name'}
+     * Остановка - {@code <node> <tag k='highway' v='bus_stop' />}
      */
     private void readStax() {
         try {
