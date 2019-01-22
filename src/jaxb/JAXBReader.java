@@ -39,7 +39,7 @@ public class JAXBReader {
 
     /**
      * Загрузка (демаршализация) объекта класса Osm из XML-файла
-     * @return - список объектов, которые были дочерними тегами тега osm в XML-файле
+     * @return  список объектов, которые были дочерними тегами тега osm в XML-файле
      */
     private ArrayList<Object> unmarshal() {
         Osm root=null;
@@ -65,8 +65,8 @@ public class JAXBReader {
 
     /**
      * Формирование списка остановок общественного транспорта
-     * <node>     <tag k='highway' v='bus_stop' />
-     * @param list - список объектов, которые были дочерними тегами тега osm в XML-файле
+     * {@code <node>     <tag k='highway' v='bus_stop' />}
+     * @param list  список объектов, которые были дочерними тегами тега osm в XML-файле
      */
     private void fillListOfBusStops(ArrayList<Object> list) {
         for(Object obj:list) {
@@ -87,8 +87,8 @@ public class JAXBReader {
 
     /**
      * Формирование списка улиц
-     * тег <way> c вложенным тегом highway=* , у которого есть <tag k='name'
-     * @param list - список объектов, которые были дочерними тегами тега osm в XML-файле
+     * тег {@code <way>} c вложенным тегом highway=* , у которого есть {@code <tag k='name'}
+     * @param list  список объектов, которые были дочерними тегами тега osm в XML-файле
      */
     private void fillListOfStreets(ArrayList<Object> list) {
         for (Object obj : list) {
